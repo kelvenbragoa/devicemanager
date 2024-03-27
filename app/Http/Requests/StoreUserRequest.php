@@ -23,6 +23,12 @@ class StoreUserRequest extends FormRequest
     {
         return [
             //
+            'name'=>'required|string',
+            'mobile'=>'required',
+            'email'=>'required|string|email|unique:users',
+            'password'=>'required|min:8'
+
+           
         ];
     }
 }

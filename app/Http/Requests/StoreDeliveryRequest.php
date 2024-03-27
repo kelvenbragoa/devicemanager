@@ -23,6 +23,12 @@ class StoreDeliveryRequest extends FormRequest
     {
         return [
             //
+            'observation' => 'required',
+            'device_id' => 'required|exists:App\Models\Device,id',
+            'operation_id' => 'required|exists:App\Models\Operation,id',
+            'user_id' => 'required|exists:App\Models\User,id',
+            'employee_id' => 'required|exists:App\Models\Employee,id',
+            'company_id' => 'required|exists:App\Models\Company,id',
         ];
     }
 }

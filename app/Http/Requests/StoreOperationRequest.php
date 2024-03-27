@@ -23,6 +23,7 @@ class StoreOperationRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required',
         ];
     }
 }

@@ -23,6 +23,12 @@ class StoreDeviceRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required',
+            'make' => 'required',
+            'model' => 'required',
+            'serial' => 'required',
+            'type_device_id' => 'required|exists:App\Models\TypeDevice,id',
+            'device_status_id' => 'required|exists:App\Models\DeviceStatus,id',
         ];
     }
 }
