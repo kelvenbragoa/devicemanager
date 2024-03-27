@@ -6,12 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 
 class Transaction extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use LogsActivity;
     protected $fillable = [
         'delivery_id',
         'device_id',
@@ -43,6 +46,13 @@ class Transaction extends Model
     public function operation(): HasOne
     {
         return $this->hasOne(Operation::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logOnly(['*']);
+        // Chain fluent methods for configuration options
     }
 
 }
