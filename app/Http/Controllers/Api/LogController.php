@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLogRequest;
+use App\Models\Log;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -13,6 +15,18 @@ class LogController extends Controller
     public function index()
     {
         //
+        $searchQuery = request('query');
+
+        $log = Log::query()
+        ->when(request('query'),function($query,$searchQuery){
+            $query->where('name','like',"%{$searchQuery}%");
+        })
+        ->orderBy('name','asc')
+        ->paginate();
+
+        return response()->json([
+            'company' => $log
+        ]);
     }
 
     /**
@@ -26,9 +40,15 @@ class LogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLogRequest $request)
     {
         //
+        $data = $request->all();
+        $log = Log::create($data);
+
+        return response()->json([
+            'company' => $log
+        ]);
     }
 
     /**
@@ -37,6 +57,11 @@ class LogController extends Controller
     public function show(string $id)
     {
         //
+        $log = Log::findOrFail($id);
+
+        return response()->json([
+            'company' => $log
+        ]);
     }
 
     /**
@@ -45,6 +70,11 @@ class LogController extends Controller
     public function edit(string $id)
     {
         //
+        $log = Log::findOrFail($id);
+
+        return response()->json([
+            'company' => $log
+        ]);
     }
 
     /**
@@ -53,6 +83,14 @@ class LogController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->all();
+        $log = Log::findOrFail($id);
+
+        $log->update($data);
+
+        return response()->json([
+            'company' => $log
+        ]);
     }
 
     /**
@@ -61,5 +99,10 @@ class LogController extends Controller
     public function destroy(string $id)
     {
         //
+        $log = Log::findOrFail($id);
+
+        $log->delete();
+
+        return response()->noContent();
     }
 }

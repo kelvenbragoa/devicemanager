@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTypeDeviceRequest;
+use App\Models\TypeDevice;
 use Illuminate\Http\Request;
 
 class TypeDeviceController extends Controller
@@ -13,6 +15,18 @@ class TypeDeviceController extends Controller
     public function index()
     {
         //
+        $searchQuery = request('query');
+
+        $typedevice = TypeDevice::query()
+        ->when(request('query'),function($query,$searchQuery){
+            $query->where('name','like',"%{$searchQuery}%");
+        })
+        ->orderBy('name','asc')
+        ->paginate();
+
+        return response()->json([
+            'typedevice' => $typedevice
+        ]);
     }
 
     /**
@@ -26,9 +40,15 @@ class TypeDeviceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTypeDeviceRequest $request)
     {
         //
+        $data = $request->all();
+        $typedevice = TypeDevice::create($data);
+
+        return response()->json([
+            'typedevice' => $typedevice
+        ]);
     }
 
     /**
@@ -37,6 +57,11 @@ class TypeDeviceController extends Controller
     public function show(string $id)
     {
         //
+        $typedevice = TypeDevice::findOrFail($id);
+
+        return response()->json([
+            'typedevice' => $typedevice
+        ]);
     }
 
     /**
@@ -45,6 +70,11 @@ class TypeDeviceController extends Controller
     public function edit(string $id)
     {
         //
+        $typedevice = TypeDevice::findOrFail($id);
+
+        return response()->json([
+            'typedevice' => $typedevice
+        ]);
     }
 
     /**
@@ -53,6 +83,14 @@ class TypeDeviceController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->all();
+        $typedevice = TypeDevice::findOrFail($id);
+
+        $typedevice->update($data);
+
+        return response()->json([
+            'typedevice' => $typedevice
+        ]);
     }
 
     /**
@@ -61,5 +99,10 @@ class TypeDeviceController extends Controller
     public function destroy(string $id)
     {
         //
+        $typedevice = TypeDevice::findOrFail($id);
+
+        $typedevice->delete();
+
+        return response()->noContent();
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +15,18 @@ class UserController extends Controller
     public function index()
     {
         //
-        return 'hell';
+        $searchQuery = request('query');
+
+        $user = User::query()
+        ->when(request('query'),function($query,$searchQuery){
+            $query->where('name','like',"%{$searchQuery}%");
+        })
+        ->orderBy('name','asc')
+        ->paginate();
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -27,9 +40,15 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         //
+        $data = $request->all();
+        $user = User::create($data);
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -38,6 +57,11 @@ class UserController extends Controller
     public function show(string $id)
     {
         //
+        $user = User::findOrFail($id);
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -46,6 +70,11 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+        $user = User::findOrFail($id);
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -54,6 +83,14 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->all();
+        $user = User::findOrFail($id);
+
+        $user->update($data);
+
+        return response()->json([
+            'user' => $user
+        ]);
     }
 
     /**
@@ -62,5 +99,10 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return response()->noContent();
     }
 }

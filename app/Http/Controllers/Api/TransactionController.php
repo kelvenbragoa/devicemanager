@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTransactionRequest;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -13,6 +15,18 @@ class TransactionController extends Controller
     public function index()
     {
         //
+        $searchQuery = request('query');
+
+        $transaction = Transaction::query()
+        ->when(request('query'),function($query,$searchQuery){
+            $query->where('name','like',"%{$searchQuery}%");
+        })
+        ->orderBy('name','asc')
+        ->paginate();
+
+        return response()->json([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -26,9 +40,15 @@ class TransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTransactionRequest $request)
     {
         //
+        $data = $request->all();
+        $transaction = Transaction::create($data);
+
+        return response()->json([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -37,6 +57,11 @@ class TransactionController extends Controller
     public function show(string $id)
     {
         //
+        $transaction = Transaction::findOrFail($id);
+
+        return response()->json([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -45,6 +70,11 @@ class TransactionController extends Controller
     public function edit(string $id)
     {
         //
+        $transaction = Transaction::findOrFail($id);
+
+        return response()->json([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -53,6 +83,14 @@ class TransactionController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $data = $request->all();
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->update($data);
+
+        return response()->json([
+            'transaction' => $transaction
+        ]);
     }
 
     /**
@@ -61,5 +99,10 @@ class TransactionController extends Controller
     public function destroy(string $id)
     {
         //
+        $transaction = Transaction::findOrFail($id);
+
+        $transaction->delete();
+
+        return response()->noContent();
     }
 }
