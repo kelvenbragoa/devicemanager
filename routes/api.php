@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\DeviceStatusController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\LogController;
 use App\Http\Controllers\Api\OperationController;
+use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TypeDeviceController;
@@ -35,11 +36,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('devices', DeviceController::class);
     Route::resource('devicestatus', DeviceStatusController::class);
     Route::resource('employees', EmployeeController::class);
-    Route::resource('logs', LogController::class);
     Route::resource('operations', OperationController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('typedevices', TypeDeviceController::class);
+    Route::resource('provinces', ProvinceController::class);
 });
 
 
