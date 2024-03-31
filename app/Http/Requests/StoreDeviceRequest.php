@@ -27,6 +27,7 @@ class StoreDeviceRequest extends FormRequest
             'make' => 'required',
             'model' => 'required',
             'serial' => 'required',
+            'device_availability_id'=>'required|exists:App\Models\DeviceAvailability,id',
             'type_device_id' => 'required|exists:App\Models\TypeDevice,id',
             'device_status_id' => 'required|exists:App\Models\DeviceStatus,id',
         ];

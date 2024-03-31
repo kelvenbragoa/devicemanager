@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Models\Company;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -21,6 +22,7 @@ class CompanyController extends Controller
         ->when(request('query'),function($query,$searchQuery){
             $query->where('name','like',"%{$searchQuery}%");
         })
+        ->with('province')
         ->orderBy('name','asc')
         ->paginate();
 
@@ -57,7 +59,7 @@ class CompanyController extends Controller
     public function show(string $id)
     {
         //
-        $company = Company::findOrFail($id);
+        $company = Company::with('province')->findOrFail($id);
 
         return response()->json([
             'company' => $company
@@ -71,9 +73,11 @@ class CompanyController extends Controller
     {
         //
         $company = Company::findOrFail($id);
+        $province = Province::all();
 
         return response()->json([
-            'company' => $company
+            'company' => $company,
+            'province'=>$province
         ]);
     }
 

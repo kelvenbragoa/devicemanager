@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
@@ -22,18 +23,31 @@ class Device extends Model
         'model',
         'serial',
         'type_device_id',
-        'device_status_id'
+        'device_status_id',
+        'device_availability_id'
     ];
 
-    public function deviceStatus(): HasOne
+    public function devicestatus(): BelongsTo
     {
-        return $this->hasOne(DeviceStatus::class);
+        return $this->belongsTo(DeviceStatus::class,'device_status_id','id');
     }
 
-    public function typeDevice(): HasOne
+    public function deviceavailability(): BelongsTo
     {
-        return $this->hasOne(TypeDevice::class);
+        return $this->belongsTo(DeviceAvailability::class,'device_availability_id','id');
     }
+
+    public function typedevice(): BelongsTo
+    {
+        return $this->belongsTo(TypeDevice::class,'type_device_id','id');
+    }
+
+    public function employeeholding(): HasOne
+    {
+        return $this->hasOne(Delivery::class,'device_id','id')->where('operation_id',1);
+    }
+
+    
 
     public function getActivitylogOptions(): LogOptions
     {

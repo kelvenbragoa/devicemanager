@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmployeeRequest;
+use App\Models\Company;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class EmployeeController extends Controller
         ->when(request('query'),function($query,$searchQuery){
             $query->where('name','like',"%{$searchQuery}%");
         })
+        ->with('company')
         ->orderBy('name','asc')
         ->paginate();
 
@@ -57,7 +59,7 @@ class EmployeeController extends Controller
     public function show(string $id)
     {
         //
-        $employee = Employee::findOrFail($id);
+        $employee = Employee::with('company')->findOrFail($id);
 
         return response()->json([
             'employee' => $employee
@@ -71,9 +73,11 @@ class EmployeeController extends Controller
     {
         //
         $employee = Employee::findOrFail($id);
+        $company = Company::all();
 
         return response()->json([
-            'employee' => $employee
+            'employee' => $employee,
+            'company' => $company
         ]);
     }
 

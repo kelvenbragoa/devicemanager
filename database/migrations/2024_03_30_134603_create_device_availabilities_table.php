@@ -11,15 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('device_availabilities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('make');
-            $table->string('model');
-            $table->string('serial');
-            $table->unsignedInteger('type_device_id');
-            $table->unsignedInteger('device_status_id');
-            $table->unsignedInteger('device_availability_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('device_availabilities');
     }
 };

@@ -16,38 +16,44 @@ class Delivery extends Model
     use LogsActivity;
 
     protected $fillable = [
-        'observation',
-        'device_id',
-        'operation_id',
-        'user_id',
+        'observation_delivery',
+        'observation_returning',
+        'delivered_by_user_id',
+        'returned_by_user_id',
+        'delivered_date',
+        'returned_date',
         'employee_id',
         'company_id',
+        'device_id',
+        'operation_id',
+        
+        
+        
     ];
 
     public function device(): HasOne
     {
-        return $this->hasOne(Device::class);
+        return $this->hasOne(Device::class,'id','device_id');
     }
 
-    public function operation(): HasOne
+    public function delivereduser(): HasOne
     {
-        return $this->hasOne(Operation::class);
+        return $this->hasOne(User::class,'id','delivered_by_user_id');
+    }
+    public function returninguser(): HasOne
+    {
+        return $this->hasOne(User::class,'id','returning_by_user_id');
     }
 
 
     public function employee(): HasOne
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employee::class,'id','employee_id');
     }
 
     public function company(): HasOne
     {
-        return $this->hasOne(Company::class);
-    }
-
-    public function user(): HasOne
-    {
-        return $this->hasOne(User::class);
+        return $this->hasOne(Company::class,'id','company_id');
     }
 
     public function getActivitylogOptions(): LogOptions

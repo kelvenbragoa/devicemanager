@@ -23,29 +23,30 @@ class Transaction extends Model
         'operation_id'
     ];
 
+    public function device(): HasOne
+    {
+        return $this->hasOne(Device::class,'id','device_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
     public function delivery(): HasOne
     {
         return $this->hasOne(Delivery::class);
     }
 
-    public function device(): HasOne
-    {
-        return $this->hasOne(Device::class);
-    }
-
-    public function user(): HasOne
-    {
-        return $this->hasOne(User::class);
-    }
 
     public function employee(): HasOne
     {
-        return $this->hasOne(Employee::class);
+        return $this->hasOne(Employee::class,'id','employee_id');
     }
 
     public function operation(): HasOne
     {
-        return $this->hasOne(Operation::class);
+        return $this->hasOne(Operation::class,'id','operation_id');
     }
 
     public function getActivitylogOptions(): LogOptions

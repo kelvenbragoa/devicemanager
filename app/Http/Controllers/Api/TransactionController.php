@@ -21,7 +21,11 @@ class TransactionController extends Controller
         ->when(request('query'),function($query,$searchQuery){
             $query->where('name','like',"%{$searchQuery}%");
         })
-        ->orderBy('name','asc')
+        ->with('device')
+        ->with('user')
+        ->with('employee')
+        ->with('operation')
+        ->orderBy('created_at','desc')
         ->paginate();
 
         return response()->json([

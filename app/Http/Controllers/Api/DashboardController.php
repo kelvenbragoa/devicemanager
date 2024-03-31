@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Province;
+use App\Models\Company;
+use App\Models\Delivery;
+use App\Models\Device;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
-class ProvinceController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,19 +17,16 @@ class ProvinceController extends Controller
     public function index()
     {
         //
-        $searchQuery = request('query');
-
-        $province = Province::query()
-        ->when(request('query'),function($query,$searchQuery){
-            $query->where('name','like',"%{$searchQuery}%");
-        })
-        ->orderBy('name','asc')
-        // ->paginate();
-        ->get();
-
+        $devices = Device::count();
+        $companies = Company::count();
+        $employees = Employee::count();
+        $deliveries = Delivery::count();
 
         return response()->json([
-            'province' => $province
+            'devices' => $devices,
+            'companies' => $companies,
+            'employees' => $employees,
+            'deliveries' => $deliveries
         ]);
     }
 

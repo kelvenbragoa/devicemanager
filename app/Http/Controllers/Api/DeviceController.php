@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDeviceRequest;
 use App\Models\Device;
+use App\Models\DeviceAvailability;
+use App\Models\DeviceStatus;
+use App\Models\TypeDevice;
 use Illuminate\Http\Request;
 
 class DeviceController extends Controller
@@ -21,11 +24,16 @@ class DeviceController extends Controller
         ->when(request('query'),function($query,$searchQuery){
             $query->where('name','like',"%{$searchQuery}%");
         })
+        ->with('devicestatus')
+        ->with('typedevice')
+        ->with('deviceavailability')
         ->orderBy('name','asc')
         ->paginate();
+        $deviceAvailability = DeviceAvailability::all();
 
         return response()->json([
-            'device' => $device
+            'device' => $device,
+            'deviceAvailability'=> $deviceAvailability
         ]);
     }
 
@@ -35,6 +43,15 @@ class DeviceController extends Controller
     public function create()
     {
         //
+        $devicestatus = DeviceStatus::all();
+        $typedevice = TypeDevice::all();
+        $deviceavailability = DeviceAvailability::all();
+
+        return response()->json([
+            'devicestatus' => $devicestatus,
+            'typedevice' => $typedevice,
+            'deviceavailability'=>$deviceavailability
+        ]);
     }
 
     /**
@@ -57,7 +74,7 @@ class DeviceController extends Controller
     public function show(string $id)
     {
         //
-        $device = Device::findOrFail($id);
+        $device = Device::with('devicestatus')->with('typedevice')->with('deviceavailability')->findOrFail($id);
 
         return response()->json([
             'device' => $device
@@ -70,10 +87,16 @@ class DeviceController extends Controller
     public function edit(string $id)
     {
         //
-        $device = Device::findOrFail($id);
+        $device = Device::with('employeeholding')->findOrFail($id);
+        $typedevice = TypeDevice::all();
+        $devicestatus = DeviceStatus::all();
+        $deviceavailability = DeviceAvailability::all();
 
         return response()->json([
-            'device' => $device
+            'device' => $device,
+            'typedevice' => $typedevice,
+            'devicestatus' => $devicestatus,
+            'deviceavailability'=>$deviceavailability
         ]);
     }
 

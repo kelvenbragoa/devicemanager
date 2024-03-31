@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
-            $table->text('observation');
-            $table->unsignedBigInteger('device_id');
-            $table->unsignedBigInteger('operation_id');
-            $table->unsignedBigInteger('user_id');
+            $table->text('observation_delivery')->nullable();
+            $table->text('observation_returning')->nullable();
+            $table->unsignedBigInteger('delivered_by_user_id');
+            $table->unsignedBigInteger('returned_by_user_id')->nullable();
+            $table->timestamp('delivered_date');
+            $table->timestamp('returned_date')->nullable();
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('device_id');
+            $table->unsignedBigInteger('operation_id');
             $table->softDeletes();
             $table->timestamps();
         });

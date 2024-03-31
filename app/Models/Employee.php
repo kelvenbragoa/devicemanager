@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
@@ -21,9 +22,14 @@ class Employee extends Model
         'company_id'
     ];
 
-    public function company(): HasOne
+    public function company(): BelongsTo
     {
-        return $this->hasOne(Device::class);
+        return $this->belongsTo(Company::class);
+    }
+
+    public function deviceinhold(): HasOne
+    {
+        return $this->hasOne(Delivery::class,'employee_id','id')->where('operation_id',1);
     }
 
     public function getActivitylogOptions(): LogOptions

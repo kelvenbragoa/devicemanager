@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeliveryController;
 use App\Http\Controllers\Api\DeviceController;
 use App\Http\Controllers\Api\DeviceStatusController;
@@ -30,6 +31,7 @@ Route::post('logout',[UserAuthController::class,'logout'])
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('dashboard', DashboardController::class);
     Route::resource('users', UserController::class);
     Route::resource('deliveries', DeliveryController::class);
     Route::resource('companies', CompanyController::class);
