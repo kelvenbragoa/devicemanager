@@ -21,12 +21,25 @@ class DashboardController extends Controller
         $companies = Company::count();
         $employees = Employee::count();
         $deliveries = Delivery::count();
+        $dataDeliveryDay = [];
+
+        for ($x = 1; $x <= 31; $x++) {
+            $deliveryChartDay = Delivery::whereDay('created_at',$x)->whereMonth('created_at',date('m'))->whereYear('created_at',date('Y'))->count();
+            $dataDeliveryDay[]=$deliveryChartDay;
+
+            // if($deliveryChartDay==null){
+            //     $dataDeliveryDay[]=0;
+            // }else{
+            //     $dataDeliveryDay[]=$deliveryChartDay->value;
+            // }
+        }
 
         return response()->json([
             'devices' => $devices,
             'companies' => $companies,
             'employees' => $employees,
-            'deliveries' => $deliveries
+            'deliveries' => $deliveries,
+            'dataDeliveryDay'=>$dataDeliveryDay,
         ]);
     }
 
