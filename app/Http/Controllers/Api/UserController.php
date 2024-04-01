@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 
 class UserController extends Controller
 {
@@ -60,9 +61,18 @@ class UserController extends Controller
     {
         //
         $user = User::with('role')->findOrFail($id);
+        $activity = Activity::query()
+        ->when(request('query'),function($query,$searchQuery){
+            $query->where('event','like',"%{$searchQuery}%");
+        })
+        ->with('causer')
+        ->where('causer_id',$user->id)
+        ->orderBy('created_at','desc')
+        ->paginate();
 
         return response()->json([
-            'user' => $user
+            'user' => $user,
+            'audit' => $activity
         ]);
     }
 

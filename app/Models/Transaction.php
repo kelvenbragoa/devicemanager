@@ -35,7 +35,7 @@ class Transaction extends Model
 
     public function delivery(): HasOne
     {
-        return $this->hasOne(Delivery::class);
+        return $this->hasOne(Delivery::class,'id','delivery_id');
     }
 
 

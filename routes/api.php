@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\DeviceStatusController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\LogController;
 use App\Http\Controllers\Api\OperationController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TransactionController;
@@ -27,6 +28,7 @@ Route::get('/login',function(){
 
 Route::post('register',[UserAuthController::class,'register']);
 Route::post('login',[UserAuthController::class,'login']);
+Route::post('updatepassword',[UserAuthController::class,'login']);
 Route::post('logout',[UserAuthController::class,'logout'])
 ->middleware('auth:sanctum');
 
@@ -41,10 +43,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('employees', EmployeeController::class);
     Route::resource('operations', OperationController::class);
     Route::resource('roles', RoleController::class);
-    Route::resource('transactions', TransactionController::class);
     Route::resource('typedevices', TypeDeviceController::class);
     Route::resource('provinces', ProvinceController::class);
     Route::resource('audits', AuditsController::class);
+    Route::resource('transactions', TransactionController::class);
+    Route::resource('profiles', ProfileController::class);
+    Route::post('updatepassword',[UserAuthController::class,'updatepassword']);
+
+    
 });
+    Route::get('/export',[TransactionController::class,'export']);
 
 

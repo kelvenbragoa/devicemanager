@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Delivery;
 use App\Models\Device;
 use App\Models\Employee;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -22,17 +23,25 @@ class DashboardController extends Controller
         $employees = Employee::count();
         $deliveries = Delivery::count();
         $dataDeliveryDay = [];
+        $dataDeliveryMonth = [];
+        $transactions = Transaction::
+        with('device')
+        ->with('user')
+        ->with('employee.company')
+        ->with('operation')
+        ->orderBy('created_at', 'DESC')->get();
 
         for ($x = 1; $x <= 31; $x++) {
             $deliveryChartDay = Delivery::whereDay('created_at',$x)->whereMonth('created_at',date('m'))->whereYear('created_at',date('Y'))->count();
             $dataDeliveryDay[]=$deliveryChartDay;
-
-            // if($deliveryChartDay==null){
-            //     $dataDeliveryDay[]=0;
-            // }else{
-            //     $dataDeliveryDay[]=$deliveryChartDay->value;
-            // }
         }
+
+        for ($x = 1; $x <= 12; $x++) {
+            $deliveryChartMonth = Delivery::whereMonth('created_at',$x)->whereYear('created_at',date('Y'))->count();
+            $dataDeliveryMonth[]=$deliveryChartMonth;
+        }
+
+
 
         return response()->json([
             'devices' => $devices,
@@ -40,6 +49,8 @@ class DashboardController extends Controller
             'employees' => $employees,
             'deliveries' => $deliveries,
             'dataDeliveryDay'=>$dataDeliveryDay,
+            'dataDeliveryMonth'=>$dataDeliveryMonth,
+            'transactions'=>$transactions
         ]);
     }
 
