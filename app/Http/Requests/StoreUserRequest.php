@@ -25,6 +25,7 @@ class StoreUserRequest extends FormRequest
             //
             'name'=>'required|string',
             'mobile'=>'required',
+            'role_id'=>'required',
             'email'=>'required|string|email|unique:users',
             'password'=>'required|min:8'
 

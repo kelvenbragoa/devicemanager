@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuditsController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\DeliveryController;
@@ -43,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('transactions', TransactionController::class);
     Route::resource('typedevices', TypeDeviceController::class);
     Route::resource('provinces', ProvinceController::class);
+    Route::resource('audits', AuditsController::class);
 });
 
 
