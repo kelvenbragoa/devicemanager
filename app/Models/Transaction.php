@@ -25,28 +25,28 @@ class Transaction extends Model
 
     public function device(): HasOne
     {
-        return $this->hasOne(Device::class,'id','device_id');
+        return $this->hasOne(Device::class,'id','device_id')->withTrashed();
     }
 
     public function user(): HasOne
     {
-        return $this->hasOne(User::class,'id','user_id');
+        return $this->hasOne(User::class,'id','user_id')->withTrashed();
     }
 
     public function delivery(): HasOne
     {
-        return $this->hasOne(Delivery::class,'id','delivery_id');
+        return $this->hasOne(Delivery::class,'id','delivery_id')->withTrashed();
     }
 
 
     public function employee(): HasOne
     {
-        return $this->hasOne(Employee::class,'id','employee_id');
+        return $this->hasOne(Employee::class,'id','employee_id')->withTrashed();
     }
 
     public function operation(): HasOne
     {
-        return $this->hasOne(Operation::class,'id','operation_id');
+        return $this->hasOne(Operation::class,'id','operation_id')->withTrashed();
     }
 
     public function getActivitylogOptions(): LogOptions

@@ -24,12 +24,12 @@ class Employee extends Model
 
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withTrashed();
     }
 
     public function deviceinhold(): HasOne
     {
-        return $this->hasOne(Delivery::class,'employee_id','id')->where('operation_id',1);
+        return $this->hasOne(Delivery::class,'employee_id','id')->where('operation_id',1)->withTrashed();
     }
 
     public function getActivitylogOptions(): LogOptions

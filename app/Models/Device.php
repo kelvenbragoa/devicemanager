@@ -29,22 +29,22 @@ class Device extends Model
 
     public function devicestatus(): BelongsTo
     {
-        return $this->belongsTo(DeviceStatus::class,'device_status_id','id');
+        return $this->belongsTo(DeviceStatus::class,'device_status_id','id')->withTrashed();
     }
 
     public function deviceavailability(): BelongsTo
     {
-        return $this->belongsTo(DeviceAvailability::class,'device_availability_id','id');
+        return $this->belongsTo(DeviceAvailability::class,'device_availability_id','id')->withTrashed();
     }
 
     public function typedevice(): BelongsTo
     {
-        return $this->belongsTo(TypeDevice::class,'type_device_id','id');
+        return $this->belongsTo(TypeDevice::class,'type_device_id','id')->withTrashed();
     }
 
     public function employeeholding(): HasOne
     {
-        return $this->hasOne(Delivery::class,'device_id','id')->where('operation_id',1);
+        return $this->hasOne(Delivery::class,'device_id','id')->where('operation_id',1)->withTrashed();
     }
 
     

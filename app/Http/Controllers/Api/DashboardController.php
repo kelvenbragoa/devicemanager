@@ -29,7 +29,7 @@ class DashboardController extends Controller
         ->with('user')
         ->with('employee.company')
         ->with('operation')
-        ->orderBy('created_at', 'DESC')->get();
+        ->orderBy('created_at', 'DESC')->limit(5)->get();
 
         for ($x = 1; $x <= 31; $x++) {
             $deliveryChartDay = Delivery::whereDay('created_at',$x)->whereMonth('created_at',date('m'))->whereYear('created_at',date('Y'))->count();

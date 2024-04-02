@@ -33,27 +33,27 @@ class Delivery extends Model
 
     public function device(): HasOne
     {
-        return $this->hasOne(Device::class,'id','device_id');
+        return $this->hasOne(Device::class,'id','device_id')->withTrashed();
     }
 
     public function delivereduser(): HasOne
     {
-        return $this->hasOne(User::class,'id','delivered_by_user_id');
+        return $this->hasOne(User::class,'id','delivered_by_user_id')->withTrashed();
     }
     public function returninguser(): HasOne
     {
-        return $this->hasOne(User::class,'id','returning_by_user_id');
+        return $this->hasOne(User::class,'id','returning_by_user_id')->withTrashed();
     }
 
 
     public function employee(): HasOne
     {
-        return $this->hasOne(Employee::class,'id','employee_id');
+        return $this->hasOne(Employee::class,'id','employee_id')->withTrashed();
     }
 
     public function company(): HasOne
     {
-        return $this->hasOne(Company::class,'id','company_id');
+        return $this->hasOne(Company::class,'id','company_id')->withTrashed();
     }
 
     public function getActivitylogOptions(): LogOptions

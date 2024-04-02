@@ -33,12 +33,12 @@ class Company extends Model
 
     public function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class);
+        return $this->belongsTo(Province::class)->withTrashed();
     }
 
     public function employees (): HasMany
     {
-        return $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class)->withTrashed();
     }
 
 
