@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('transactions', TransactionController::class);
     Route::resource('profiles', ProfileController::class);
     Route::post('updatepassword',[UserAuthController::class,'updatepassword']);
+    Route::post('deliveriesdragdrop',[DeliveryController::class,'deliveriesdragdrop']);
     Route::get('/export',[ReportController::class,'exporttransaction']);
     Route::get('/export/user',[ReportController::class,'exportuser']);
     Route::get('/export/company',[ReportController::class,'exportcompany']);

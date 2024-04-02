@@ -27,7 +27,7 @@
                         $closed_at = strtotime($transaction->created_at);
                         $diff = $closed_at - $created_at;
                     ?>
-                    {{round($diff/3600,1);}} Horas e {{round($diff/60,1);}} Minutos
+                    {{round($diff/3600,1);}} Horas ({{round($diff/60,1);}} Minutos)
                 @endif
             </td>
             <td>{{ $transaction->employee->company->name }}</td>

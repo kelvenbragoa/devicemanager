@@ -101,6 +101,55 @@ class DeliveryController extends Controller
         ]);
     }
 
+    public function deliveriesdragdrop(Request $request){
+        $data = $request->all();
+        $user = Auth::user();
+
+        $deliverytest = Delivery::where('device_id',$data['device_id'])
+                                ->where('operation_id',1)->count();
+
+        $deliverytest2 = Delivery::where('employee_id',$data['employee_id'])
+                                ->where('operation_id',1)->count();
+        if($deliverytest>0){
+            return response()->json([
+               'message' => 'Este dispositivo se encontra em uso em uma operação'
+            ],422);
+        }
+        if($deliverytest2>0){
+            return response()->json([
+               'message' => 'Este funcionário ja tem um dispositivo alocado'
+            ],422);
+        }
+
+
+ 
+        $delivery = Delivery::create([
+            'device_id' => $data['device_id'],
+            'company_id' => $data['company_id'],
+            'employee_id'=> $data['employee_id'],
+            'observation_delivery'=> $data['observation_delivery'] ?? null,
+            'delivered_by_user_id'=> $user->id,
+            'delivered_date'=> now(),
+            'operation_id'=> 1,
+        ]);
+
+        $device = Device::find($data['device_id']);
+        $device->update([
+            'device_availability_id' => 2,
+        ]);
+        $transaction = Transaction::create([
+            'delivery_id' => $delivery->id,
+            'device_id' => $data['device_id'],
+            'user_id' => $user->id,
+            'employee_id' => $data['employee_id'],
+            'operation_id' => 1,
+        ]);
+
+        return response()->json([
+            'delivery' => $delivery
+        ]);
+    }
+
     /**
      * Display the specified resource.
      */
