@@ -58,8 +58,6 @@ class DashboardController extends Controller
             $dataDeliveryMonth[]=$deliveryChartMonth;
         }
 
-
-
         return response()->json([
             'devices' => $devices,
             'companies' => $companies,
