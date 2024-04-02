@@ -51,7 +51,7 @@ class Device extends Notification
     {
         return [
             //
-            'data' =>' O dispositivo esta'. $this->delivery->device->name.' esta a mais de 24 Horas com o trabalhador'.$this->delivery->employee->name
+            'data' =>' O dispositivo '. $this->delivery->device->name.' esta a mais de 24 Horas com o trabalhador '.$this->delivery->employee->name.'.'
         ];
     }
 }

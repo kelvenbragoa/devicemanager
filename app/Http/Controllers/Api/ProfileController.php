@@ -18,9 +18,11 @@ class ProfileController extends Controller
         //
         $user = User::find(Auth::user()->id)->with('role')->first();
         $audits = Activity::where('causer_id', $user->id)->orderBy('created_at','desc')->paginate();
+        $history = Activity::where('causer_id', $user->id)->where('event','login')->limit(5)->orderBy('created_at','desc')->get();
         return response()->json([
             'user'=>$user,
-            'audit'=>$audits
+            'audit'=>$audits,
+            'history'=>$history
         ]);
     }
 

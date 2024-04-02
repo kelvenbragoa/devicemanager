@@ -25,6 +25,7 @@ class UserAuthController extends Controller
 
         activity('login')
             ->causedBy($user)
+            ->event('login')
             ->withProperties(['ip' => $request->ip()])
             ->log('USER Login');
             

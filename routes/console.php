@@ -9,4 +9,4 @@ use Illuminate\Support\Facades\Schedule;
 // })->purpose('Display an inspiring quote')->everyFiveSeconds();
 
 // Artisan::command('app:check-device')->everyFiveSeconds();
-Schedule::command('app:check-device')->everyFiveSeconds();
+Schedule::command('app:check-device')->hourly();

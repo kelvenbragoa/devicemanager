@@ -36,7 +36,6 @@ class CheckDevice extends Command
         foreach ($deliveries as $delivery) {
             $to = Carbon::createFromFormat('Y-m-d H:s:i', $delivery->created_at);
             $from = Carbon::createFromFormat('Y-m-d H:s:i', now());
-    
             $diff_in_hours = $to->diffInHours($from);
             if($diff_in_hours>=24){
                 $this->info('passou 24 horas');
@@ -45,11 +44,7 @@ class CheckDevice extends Command
             }else{
                 $this->info('Nao passou 24 horas');
                 // Notification::send($users, new Device($delivery));
-
             }
-            
-
         }
-
     }
 }
