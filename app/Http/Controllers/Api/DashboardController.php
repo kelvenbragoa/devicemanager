@@ -8,6 +8,7 @@ use App\Models\Delivery;
 use App\Models\Device;
 use App\Models\Employee;
 use App\Models\Transaction;
+use App\Models\TypeDevice;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -24,12 +25,28 @@ class DashboardController extends Controller
         $deliveries = Delivery::count();
         $dataDeliveryDay = [];
         $dataDeliveryMonth = [];
+        $typedevices = TypeDevice::get();
+        $companies2 = Company::get();
+        $pieData = [];
+        $pieLabel = [];
+        $polarData = [];
+        $polarLabel = [];
         $transactions = Transaction::
         with('device')
         ->with('user')
         ->with('employee.company')
         ->with('operation')
         ->orderBy('created_at', 'DESC')->limit(5)->get();
+
+        foreach ($companies2 as $company){
+            $polarLabel[] = $company->name;
+            $polarData[] = $company->employees->count();
+        }
+
+        foreach ($typedevices as $typedevice){
+            $pieLabel[] = $typedevice->name;
+            $pieData[] = $typedevice->devices->count();
+        }
 
         for ($x = 1; $x <= 31; $x++) {
             $deliveryChartDay = Delivery::whereDay('created_at',$x)->whereMonth('created_at',date('m'))->whereYear('created_at',date('Y'))->count();
@@ -50,7 +67,11 @@ class DashboardController extends Controller
             'deliveries' => $deliveries,
             'dataDeliveryDay'=>$dataDeliveryDay,
             'dataDeliveryMonth'=>$dataDeliveryMonth,
-            'transactions'=>$transactions
+            'transactions'=>$transactions,
+            'pieLabel'=>$pieLabel,
+            'pieData'=>$pieData,
+            'polarLabel'=>$polarLabel,
+            'polarData'=>$polarData
         ]);
     }
 
