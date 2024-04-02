@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\LogController;
 use App\Http\Controllers\Api\OperationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProvinceController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TypeDeviceController;
@@ -52,6 +53,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     
 });
-    Route::get('/export',[TransactionController::class,'export']);
+    Route::get('/export',[ReportController::class,'exporttransaction']);
+    Route::get('/export/user',[ReportController::class,'exportuser']);
+    Route::get('/export/company',[ReportController::class,'exportcompany']);
+    Route::get('/export/device',[ReportController::class,'exportdevice']);
+    Route::get('/export/typedevice',[ReportController::class,'exporttypedevice']);
+    Route::get('/export/audit',[ReportController::class,'exportaudit']);
+    Route::get('/export/employee',[ReportController::class,'exportemployee']);
 
 

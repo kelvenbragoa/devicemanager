@@ -21,6 +21,8 @@ class TypeDeviceController extends Controller
         ->when(request('query'),function($query,$searchQuery){
             $query->where('name','like',"%{$searchQuery}%");
         })
+        ->with('devices.devicestatus')
+        ->with('devices.deviceavailability')
         ->orderBy('name','asc')
         ->paginate();
 

@@ -27,6 +27,7 @@ class DeviceController extends Controller
         ->with('devicestatus')
         ->with('typedevice')
         ->with('deviceavailability')
+        ->with('employeeholding')
         ->orderBy('name','asc')
         ->paginate();
         $deviceAvailability = DeviceAvailability::all();
@@ -74,7 +75,7 @@ class DeviceController extends Controller
     public function show(string $id)
     {
         //
-        $device = Device::with('devicestatus')->with('typedevice')->with('deviceavailability')->findOrFail($id);
+        $device = Device::with('devicestatus')->with('typedevice')->with('deviceavailability')->with('employeeholding.employee')->findOrFail($id);
 
         return response()->json([
             'device' => $device

@@ -22,6 +22,12 @@ class UserAuthController extends Controller
                 'message' => 'Usuario/Password incorrectos'
             ],401);
         }
+
+        activity('login')
+            ->causedBy($user)
+            ->withProperties(['ip' => $request->ip()])
+            ->log('USER Login');
+            
         $token = $user->createToken($user->name.'-AuthToken')->plainTextToken;
         return response()->json([
             'user'=>$user,
@@ -54,7 +60,9 @@ class UserAuthController extends Controller
 
         #Match The Old Password
         if(!Hash::check($request->old_password, auth()->user()->password)){
-            return back()->with("error", "Old Password Doesn't match!");
+            return response()->json([
+                "message"=>"Old Password Doesn't match!"
+              ],404); 
         }
 
 

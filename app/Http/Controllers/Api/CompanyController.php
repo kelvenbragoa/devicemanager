@@ -23,6 +23,7 @@ class CompanyController extends Controller
             $query->where('name','like',"%{$searchQuery}%");
         })
         ->with('province')
+        ->with('employees')
         ->orderBy('name','asc')
         ->paginate();
 
