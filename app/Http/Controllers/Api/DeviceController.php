@@ -62,6 +62,11 @@ class DeviceController extends Controller
     {
         //
         $data = $request->all();
+        if($request->has('image')){
+            $imageName = time().'.'.$request->image->extension();
+            $request->file('image')->storeAs('public/images',$imageName);
+            $data['image'] = $imageName;
+        }
         $device = Device::create($data);
 
         return response()->json([
@@ -109,6 +114,14 @@ class DeviceController extends Controller
         //
         $data = $request->all();
         $device = Device::findOrFail($id);
+    
+        if($request->has('image')){
+            $imageName = time().'.'.$request->image->extension();
+            $request->file('image')->storeAs('public/images',$imageName);
+            $data['image'] = $imageName;
+        }
+
+       
 
         $device->update($data);
 

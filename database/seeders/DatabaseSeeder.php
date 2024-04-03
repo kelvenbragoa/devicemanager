@@ -152,20 +152,7 @@ class DatabaseSeeder extends Seeder
                                 'updated_at' => now(),
                         ],
                 ]);
-                DB::table('device_statuses')->insert([
-                        [
-                                // 'id'=>1,
-                                'name' => 'Entrega',
-                                'created_at' => now(),
-                                'updated_at' => now(),
-                        ],
-                        [
-                                // 'id'=>2,
-                                'name' => 'Recolha', 
-                                'created_at' => now(),
-                                'updated_at' => now(),
-                        ],
-                ]);
+                
                 DB::table('users')->insert([
                         [
                                 // 'id'=>1,

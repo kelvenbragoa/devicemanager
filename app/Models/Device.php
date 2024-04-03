@@ -22,6 +22,7 @@ class Device extends Model
         'name',
         'model',
         'serial',
+        'image',
         'type_device_id',
         'device_status_id',
         'device_availability_id'

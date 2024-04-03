@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\File;
 
 class StoreDeviceRequest extends FormRequest
 {
@@ -27,6 +28,8 @@ class StoreDeviceRequest extends FormRequest
             'make' => 'required',
             'model' => 'required',
             'serial' => 'required',
+            // 'image'=>'sometimes|image|mimes:jpeg,png,jpg,gif|max:1024',
+            // 'image' =>'sometimes|'.File::image()->min('1kb')->max('1mb'),
             'device_availability_id'=>'required|exists:App\Models\DeviceAvailability,id',
             'type_device_id' => 'required|exists:App\Models\TypeDevice,id',
             'device_status_id' => 'required|exists:App\Models\DeviceStatus,id',
