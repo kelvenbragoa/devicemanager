@@ -23,7 +23,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             //
-            'name'=>'required|string',
+            'name'=>'required|string|unique:users',
             'mobile'=>'required',
             'role_id'=>'required',
             'email'=>'required|string|email|unique:users',

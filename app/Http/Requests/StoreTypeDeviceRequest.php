@@ -23,7 +23,7 @@ class StoreTypeDeviceRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:type_devices',
         ];
     }
 }

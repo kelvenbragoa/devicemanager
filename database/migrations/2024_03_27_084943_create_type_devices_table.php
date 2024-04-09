@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('type_devices', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

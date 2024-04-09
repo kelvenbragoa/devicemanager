@@ -54,10 +54,10 @@ class OperationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Operation $operation)
     {
         //
-        $operation = Operation::findOrFail($id);
+        // $operation = Operation::findOrFail($id);
 
         return response()->json([
             'operation' => $operation
@@ -67,10 +67,10 @@ class OperationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Operation $operation)
     {
         //
-        $operation = Operation::findOrFail($id);
+        // $operation = Operation::findOrFail($id);
 
         return response()->json([
             'operation' => $operation
@@ -80,11 +80,11 @@ class OperationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Operation $operation)
     {
         //
         $data = $request->all();
-        $operation = Operation::findOrFail($id);
+        // $operation = Operation::findOrFail($id);
 
         $operation->update($data);
 

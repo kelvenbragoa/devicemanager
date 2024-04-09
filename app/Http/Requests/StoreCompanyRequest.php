@@ -23,7 +23,7 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:companies',
             'address' => 'required',
             'city' => 'required',
             'province_id' => 'required|exists:App\Models\Province,id',

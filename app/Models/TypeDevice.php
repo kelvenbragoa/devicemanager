@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class TypeDevice extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
+    use HasSlug;
 
     protected $fillable = [
         'name'
@@ -30,5 +32,16 @@ class TypeDevice extends Model
         return LogOptions::defaults()
         ->logOnly(['*']);
         // Chain fluent methods for configuration options
+    }
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+        ->generateSlugsFrom('name')
+        ->saveSlugsTo('slug')
+        ->preventOverwrite();
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

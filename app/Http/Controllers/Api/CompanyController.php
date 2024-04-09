@@ -57,10 +57,11 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Company $company)
     {
         //
-        $company = Company::with('province')->findOrFail($id);
+        // $company = Company::with('province')->findOrFail($id);
+        $company->load('province');
 
         return response()->json([
             'company' => $company
@@ -70,10 +71,10 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Company $company)
     {
         //
-        $company = Company::findOrFail($id);
+        // $company = Company::findOrFail($id);
         $province = Province::all();
 
         return response()->json([
@@ -85,11 +86,11 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Company $company)
     {
         //
         $data = $request->all();
-        $company = Company::findOrFail($id);
+        // $company = Company::findOrFail($id);
 
         $company->update($data);
 

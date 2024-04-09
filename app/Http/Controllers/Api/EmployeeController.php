@@ -56,10 +56,11 @@ class EmployeeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Employee $employee)
     {
         //
-        $employee = Employee::with('company')->findOrFail($id);
+        // $employee = Employee::with('company')->findOrFail($id);
+        $employee->load('company');
 
         return response()->json([
             'employee' => $employee
@@ -69,10 +70,10 @@ class EmployeeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Employee $employee)
     {
         //
-        $employee = Employee::findOrFail($id);
+        // $employee = Employee::findOrFail($id);
         $company = Company::all();
 
         return response()->json([
@@ -84,11 +85,11 @@ class EmployeeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Employee $employee)
     {
         //
         $data = $request->all();
-        $employee = Employee::findOrFail($id);
+        // $employee = Employee::findOrFail($id);
 
         $employee->update($data);
 

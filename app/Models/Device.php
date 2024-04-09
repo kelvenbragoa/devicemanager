@@ -9,13 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
-
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Device extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use LogsActivity;
+    use HasSlug;
+
 
     protected $fillable = [
         'make',
@@ -48,6 +51,17 @@ class Device extends Model
         return $this->hasOne(Delivery::class,'device_id','id')->where('operation_id',1)->withTrashed();
     }
 
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+        ->generateSlugsFrom('name')
+        ->saveSlugsTo('slug')
+        ->preventOverwrite();
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     
 
     public function getActivitylogOptions(): LogOptions

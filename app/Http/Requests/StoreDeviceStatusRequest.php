@@ -23,7 +23,7 @@ class StoreDeviceStatusRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:device_statuses',
         ];
     }
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('type_device_id');
             $table->unsignedInteger('device_status_id');
             $table->unsignedInteger('device_availability_id');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

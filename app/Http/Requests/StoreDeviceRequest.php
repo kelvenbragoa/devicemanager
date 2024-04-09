@@ -24,7 +24,7 @@ class StoreDeviceRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:devices',
             'make' => 'required',
             'model' => 'required',
             'serial' => 'required',

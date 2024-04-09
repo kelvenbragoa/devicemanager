@@ -54,10 +54,10 @@ class DeviceStatusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(DeviceStatus $devicestatus)
     {
         //
-        $devicestatus = DeviceStatus::findOrFail($id);
+        // $devicestatus = DeviceStatus::findOrFail($id);
 
         return response()->json([
             'devicestatus' => $devicestatus
@@ -67,10 +67,10 @@ class DeviceStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(DeviceStatus $devicestatus)
     {
         //
-        $devicestatus = DeviceStatus::findOrFail($id);
+        // $devicestatus = DeviceStatus::findOrFail($id);
 
         return response()->json([
             'devicestatus' => $devicestatus
@@ -80,11 +80,11 @@ class DeviceStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, DeviceStatus $devicestatus)
     {
         //
         $data = $request->all();
-        $devicestatus = DeviceStatus::findOrFail($id);
+        // $devicestatus = DeviceStatus::findOrFail($id);
 
         $devicestatus->update($data);
 

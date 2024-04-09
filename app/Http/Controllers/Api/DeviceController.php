@@ -77,10 +77,11 @@ class DeviceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Device $device)
     {
         //
-        $device = Device::with('devicestatus')->with('typedevice')->with('deviceavailability')->with('employeeholding.employee')->findOrFail($id);
+        // $device = Device::with('devicestatus')->with('typedevice')->with('deviceavailability')->with('employeeholding.employee')->findOrFail($id);
+        $device->load('devicestatus')->load('typedevice')->load('deviceavailability')->load('employeeholding.employee');
 
         return response()->json([
             'device' => $device
@@ -90,10 +91,11 @@ class DeviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Device $device)
     {
         //
-        $device = Device::with('employeeholding')->findOrFail($id);
+        // $device = Device::with('employeeholding')->findOrFail($id);
+        $device->load('employeeholding');
         $typedevice = TypeDevice::all();
         $devicestatus = DeviceStatus::all();
         $deviceavailability = DeviceAvailability::all();
@@ -109,11 +111,11 @@ class DeviceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Device $device)
     {
         //
         $data = $request->all();
-        $device = Device::findOrFail($id);
+        // $device = Device::findOrFail($id);
     
         if($request->has('image')){
             $imageName = time().'.'.$request->image->extension();

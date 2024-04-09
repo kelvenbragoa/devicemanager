@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('city');
             $table->string('province_id');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

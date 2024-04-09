@@ -23,7 +23,7 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required',
+            'name' => 'required|unique:employees',
             'email' => 'required',
             'mobile' => 'required',
             'company_id' => 'required|exists:App\Models\Company,id',

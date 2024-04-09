@@ -12,11 +12,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable,HasApiTokens,SoftDeletes;
     use LogsActivity;
+    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -64,5 +67,16 @@ class User extends Authenticatable
         return LogOptions::defaults()
         ->logOnly(['*']);
         // Chain fluent methods for configuration options
+    }
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+        ->generateSlugsFrom('name')
+        ->saveSlugsTo('slug')
+        ->preventOverwrite();
+    }
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }

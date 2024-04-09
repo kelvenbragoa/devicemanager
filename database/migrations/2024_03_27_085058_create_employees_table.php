@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('mobile');
             $table->unsignedInteger('company_id');
+            $table->string('slug');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ProvinceController;
 use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TypeDeviceController;
 use App\Http\Controllers\Api\UserAuthController;
@@ -61,9 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/export/employee',[ReportController::class,'exportemployee']);
     Route::get('/updatenotification',[NotificationController::class,'updatenotification']);
     Route::get('/notifications',[NotificationController::class,'index']);
-
-    
 });
+Route::get('/sluggenerator',[TestController::class,'index']);
 
 
 

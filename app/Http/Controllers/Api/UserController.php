@@ -57,10 +57,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
         //
-        $user = User::with('role')->findOrFail($id);
+        // $user = User::with('role')->findOrFail($id);
+        $user->load('role');
         $activity = Activity::query()
         ->when(request('query'),function($query,$searchQuery){
             $query->where('event','like',"%{$searchQuery}%");
@@ -79,10 +80,11 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
         //
-        $user = User::with('role')->findOrFail($id);
+        // $user = User::with('role')->findOrFail($id);
+        $user->load('role');
         $roles = Role::all();
 
         return response()->json([
@@ -94,11 +96,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
         //
         $data = $request->all();
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
 
         $user->update($data);
 

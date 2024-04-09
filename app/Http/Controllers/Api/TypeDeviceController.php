@@ -56,10 +56,10 @@ class TypeDeviceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(TypeDevice $typedevice)
     {
         //
-        $typedevice = TypeDevice::findOrFail($id);
+        // $typedevice = TypeDevice::findOrFail($id);
 
         return response()->json([
             'typedevice' => $typedevice
@@ -69,10 +69,10 @@ class TypeDeviceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(TypeDevice $typedevice)
     {
         //
-        $typedevice = TypeDevice::findOrFail($id);
+        // $typedevice = TypeDevice::findOrFail($id);
 
         return response()->json([
             'typedevice' => $typedevice
@@ -82,11 +82,11 @@ class TypeDeviceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, TypeDevice $typedevice)
     {
         //
         $data = $request->all();
-        $typedevice = TypeDevice::findOrFail($id);
+        // $typedevice = TypeDevice::findOrFail($id);
 
         $typedevice->update($data);
 
