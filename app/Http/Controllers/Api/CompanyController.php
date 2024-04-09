@@ -75,6 +75,7 @@ class CompanyController extends Controller
     {
         //
         // $company = Company::findOrFail($id);
+        $company->load('province');
         $province = Province::all();
 
         return response()->json([

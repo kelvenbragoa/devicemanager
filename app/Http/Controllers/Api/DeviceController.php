@@ -95,7 +95,7 @@ class DeviceController extends Controller
     {
         //
         // $device = Device::with('employeeholding')->findOrFail($id);
-        $device->load('employeeholding');
+        $device->load('employeeholding')->load('devicestatus')->load('typedevice')->load('deviceavailability');
         $typedevice = TypeDevice::all();
         $devicestatus = DeviceStatus::all();
         $deviceavailability = DeviceAvailability::all();
