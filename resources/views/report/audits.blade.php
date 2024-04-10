@@ -14,7 +14,7 @@
             <td>{{ $audit->created_at->format('d-m-Y H:i') }}</td>
             <td>{{ $audit->subject_type }}</td>
             <td>{{ $audit->event }}</td>
-            <td>{{ $audit->causer->name }}</td>
+            <td>{{ $audit->causer->name ?? '' }}</td>
             <td>{{ $audit->properties}}</td>
             
         </tr>
