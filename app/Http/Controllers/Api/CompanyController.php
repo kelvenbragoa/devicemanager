@@ -25,7 +25,7 @@ class CompanyController extends Controller
         ->with('province')
         ->with('employees')
         ->orderBy('name','asc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'company' => $company

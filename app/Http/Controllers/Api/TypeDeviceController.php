@@ -24,7 +24,7 @@ class TypeDeviceController extends Controller
         ->with('devices.devicestatus')
         ->with('devices.deviceavailability')
         ->orderBy('name','asc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'typedevice' => $typedevice

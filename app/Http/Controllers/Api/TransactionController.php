@@ -30,7 +30,7 @@ class TransactionController extends Controller
         ->with('employee')
         ->with('operation')
         ->orderBy('created_at','desc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'transaction' => $transaction

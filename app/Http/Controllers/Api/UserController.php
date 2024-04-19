@@ -25,7 +25,7 @@ class UserController extends Controller
         })
         ->with('role')
         ->orderBy('name','asc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'user' => $user
@@ -69,7 +69,7 @@ class UserController extends Controller
         ->with('causer')
         ->where('causer_id',$user->id)
         ->orderBy('created_at','desc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'user' => $user,

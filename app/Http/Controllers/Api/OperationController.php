@@ -22,7 +22,7 @@ class OperationController extends Controller
             $query->where('name','like',"%{$searchQuery}%");
         })
         ->orderBy('name','asc')
-        ->paginate();
+        ->paginate(50);
 
         return response()->json([
             'operation' => $operation

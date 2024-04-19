@@ -29,7 +29,7 @@ class DeviceController extends Controller
         ->with('deviceavailability')
         ->with('employeeholding')
         ->orderBy('name','asc')
-        ->paginate();
+        ->paginate(50);
         $deviceAvailability = DeviceAvailability::all();
 
         return response()->json([

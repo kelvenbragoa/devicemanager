@@ -23,7 +23,7 @@ class AuditsController extends Controller
         })
         ->with('causer')
         ->orderBy('created_at','desc')
-        ->paginate();
+        ->paginate(50);
 
         // $activity = Activity::paginate();
 
