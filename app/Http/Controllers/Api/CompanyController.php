@@ -62,6 +62,7 @@ class CompanyController extends Controller
         //
         // $company = Company::with('province')->findOrFail($id);
         $company->load('province');
+        $company->load('employees');
 
         return response()->json([
             'company' => $company

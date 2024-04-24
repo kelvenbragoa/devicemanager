@@ -9,6 +9,7 @@ use App\Models\Device;
 use App\Models\Employee;
 use App\Models\Transaction;
 use App\Models\TypeDevice;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -37,7 +38,16 @@ class DashboardController extends Controller
         ->with('employee.company')
         ->with('operation')
         ->orderBy('created_at', 'DESC')->limit(5)->get();
+        $currentDateTime = Carbon::now();
+        $twentyFourHoursAgo = $currentDateTime->subHours(24);
+        $deliverytwentyfourhours = Delivery::where('created_at', '<=', $twentyFourHoursAgo)->where('operation_id',1)->with('device')->with('delivereduser')->with('employee')->with('company')->get();
+        $workingfine = Device::where('device_status_id',1)->count();
+        $damaged = Device::where('device_status_id',2)->count();
+        $free = Device::where('device_availability_id',1)->count();
+        $busy = Device::where('device_availability_id',2)->count();
 
+        // device_status_id
+        // device_availability_id
         foreach ($companies2 as $company){
             $polarLabel[] = $company->name;
             $polarData[] = $company->employees->count();
@@ -69,7 +79,12 @@ class DashboardController extends Controller
             'pieLabel'=>$pieLabel,
             'pieData'=>$pieData,
             'polarLabel'=>$polarLabel,
-            'polarData'=>$polarData
+            'polarData'=>$polarData,
+            'deliverytwentyfourhours'=>$deliverytwentyfourhours,
+            'workingfine'=>$workingfine,
+            'damaged'=>$damaged,
+            'free'=>$free,
+            'busy'=>$busy
         ]);
     }
 
