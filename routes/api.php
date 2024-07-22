@@ -64,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/notifications',[NotificationController::class,'index']);
 });
 Route::get('/sluggenerator',[TestController::class,'index']);
+Route::get('/test',[TestController::class,'test']);
 
 
 

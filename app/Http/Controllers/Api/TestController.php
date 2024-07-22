@@ -12,6 +12,7 @@ use App\Models\Province;
 use App\Models\Role;
 use App\Models\TypeDevice;
 use App\Models\User;
+use App\Response\ApiResponse;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -75,5 +76,21 @@ class TestController extends Controller
         }
 
 
+    }
+
+    public function test(){
+        $data = array([
+            'id' => 1,
+            'name' => 'test'
+        ]);
+        $user = User::find(1);
+        return ApiResponse::notFound([
+            'errors'=>array([
+                'name' => 'is equiwe',
+                'message' => 'not found'
+            ])
+        ]);
+
+        // return ApiResponse::ok([]);
     }
 }
