@@ -1,143 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>CARD INTERNAL</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <base href="((base))">
-    <link rel="stylesheet" href="static/fonts/inter.css">
-</head>
-
-<style>
-    * {
-        font-size: 10px;
+  </head>
+  <style>
+     * {
+        /* font-size: 12px; */
         font-family: "inter-variable", sans-serif;
-        font-variation-settings: 'wght' 400, 'slnt' 0;
-    }
+        }
+        @page { margin: 0px; }
+        body { margin: 0px; }
+        .column1 {
+          float: left;
+          width: 28%;
+          padding: 10px;
+          height: 300px;
+        }
+        .column2 {
+          float: left;
+          width: 38%;
+          padding-top: 15px;
+        }
+        .column3 {
+          float: left;
+          width: 33%;
+          padding: 10px;
+          height: 300px;
+        }
 
-    h1 {
-        margin: 0;
-        padding: 0;
-    }
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
 
-    body {
-        margin: 0;
-        width: 555px;
-        height: 245px;
-        background-color: whitesmoke;
-        border-radius: 10px;
-    }
+        @media screen and (max-width: 600px) {
+          .column {
+            width: 100%;
+          }
+        }
+  </style>
 
-    body * {
-        overflow: hidden;
-    }
+  <body style="background-color: white">
 
-    header,
-    footer {
-        text-transform: uppercase;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 20%;
-    }
+    <div style="position: absolute; top:0; width:100%;height:60px; background-color:#1849A9">
+      <p style="text-align: center">
+        <img height="40" src="https://res.cloudinary.com/dsme9wqfi/image/upload/v1721669737/cdmlogo_okybij.png"  alt="">
+      </p>
+    </div>
 
-    main {
-        height: calc(100% - 22.42% * 2);
-    }
+    <div  style="position: absolute; top:70px; width: 100%">
+        <div class="row">
+            <div class="column1">
+                <img height="160" src="{{$image}}" style="border-radius:20px; margin:40px" alt="">
+            </div>
+            <div class="column2">
+                <p>Nome</p>
+                <p><strong>{{$name ?? 'N/A'}}</p>
+                <p>Código de funcionário</p>
+                <p><strong>{{$code ?? 'N/A'}}</strong></p>
+                <p>Departamento</p>
+                <p><strong>{{$department ?? 'N/A'}}</strong></p>
+            </div>
+            <div class="column3">
+                <img src="data:image/png;base64, {!! base64_encode(QrCode::format('svg')->size(160)->generate('1')) !!}" style="margin: 40px 40px 40px 0px">
+              </div>
+          </div>
+    </div>
+   
 
-    main table {
-        margin: 0 10px;
-    }
-
-    header {
-        background-color: #1849A9;
-        color: white;
-        height: 22.42%;
-    }
-
-    footer {
-        background-color: #e8edf7;
-        color: black;
-        height: 22.24%;
-        border-top: 1px solid #becbe6;
-    }
-
-    td {
-        vertical-align: top;
-    }
-
-    .employee-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 10px;
-    }
-
-    .field {
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    .field {
-        line-height: 1.5;
-    }
-
-    .label {
-        line-height: 1.2;
-    }
-
-    code {
-        font-family: monospace;
-    }
-
-    .full-height {
-        height: 100%;
-    }
-
-    .centered {
-        height: 100%;
-        display: flex;
-        align-items: center;
-    }
-</style>
-
-<body class="((display:card))" id="card-container">
-    <header>
-        <center>
-            <img src="((company.imageUrl))" height="25" alt="" srcset="">
-        </center>
-    </header>
-    <main>
-        <table class="full-height">
-            <tr class="full-height">
-                <td class="full-height" style="width: 19.12%;">
-                    <div class="centered">
-                        <img class="employee-image" src="((employee.imageUrl))" alt="" srcset="">
-                    </div>
-                </td>
-                <td class="full-height" style="padding: 0 5px; width: (100% - 19.12%*2);">
-                    <div class="centered">
-                        <div>
-                            <span class="label">Nome</span><br>
-                            <span class="field">Nome</span><br>
-                            <span class="label">Código de funcionário</span><br>
-                            <span class="field">000</span><br>
-                            <span class="label">Departmento</span><br>
-                            <span class="field">Departamento</span><br>
-                        </div>
-                    </div>
-                </td>
-                <td class="full-height" style="width: 19.12%;">
-                    <div class="centered" id="qrcode">
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </main>
-    <footer>
-        <center>
-            <code>((mrz))</code>
-        </center>
-    </footer>
-</body>
+    <div style="position: absolute; bottom:0; width:100%; height:70px; background-color:#E8EDF7; border-top: 1px solid #BECBE6;">
+        <p style="text-align: center">
+            
+        </p>
+    </div>
+  </body>
 </html>
