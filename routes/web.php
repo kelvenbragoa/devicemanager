@@ -23,3 +23,4 @@ Route::get('sendmail', function () {
 
 Route::get('/internal-card',[CardController::class,'internal']);
 Route::get('/external-card',[CardController::class,'external']);
+Route::get('/ict',[CardController::class,'ict']);

@@ -46,4 +46,20 @@ class CardController extends Controller
         ]);
         return $pdf->stream('external.pdf');
     }
+
+    public function ict(){
+
+        
+
+
+       
+
+        $pdf = Pdf::loadView('card.ict');
+        $pdf->setOptions([
+            'isRemoteEnabled' => true
+        ]);
+        return $pdf->stream('ict.pdf');
+    }
+
+
 }
